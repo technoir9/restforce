@@ -46,16 +46,17 @@ module Restforce
         end
         attr_reader :options, :requests
 
-        def create(sobject, reference_id, attrs)
+        def create(sobject, reference_id, all_or_none: false, **attrs)
           requests << {
             method: 'POST',
             url: composite_api_path(sobject),
             body: attrs,
-            referenceId: reference_id
+            referenceId: reference_id,
+            allOrNone: all_or_none
           }
         end
 
-        def update(sobject, reference_id, attrs)
+        def update(sobject, reference_id, all_or_none: false, **attrs)
           id = attrs.fetch(attrs.keys.find { |k, _v| k.to_s.casecmp?('id') }, nil)
           raise ArgumentError, 'Id field missing from attrs.' unless id
 
@@ -64,19 +65,21 @@ module Restforce
             method: 'PATCH',
             url: composite_api_path("#{sobject}/#{id}"),
             body: attrs_without_id,
-            referenceId: reference_id
+            referenceId: reference_id,
+            allOrNone: all_or_none
           }
         end
 
-        def destroy(sobject, reference_id, id)
+        def destroy(sobject, reference_id, id, all_or_none: false)
           requests << {
             method: 'DELETE',
             url: composite_api_path("#{sobject}/#{id}"),
-            referenceId: reference_id
+            referenceId: reference_id,
+            allOrNone: all_or_none
           }
         end
 
-        def upsert(sobject, reference_id, ext_field, attrs)
+        def upsert(sobject, reference_id, ext_field, all_or_none: false, **attrs)
           raise ArgumentError, 'External id field missing.' unless ext_field
 
           ext_id = attrs.fetch(attrs.keys.find do |k, _v|
@@ -89,7 +92,8 @@ module Restforce
             method: 'PATCH',
             url: composite_api_path("#{sobject}/#{ext_field}/#{ext_id}"),
             body: attrs_without_ext_id,
-            referenceId: reference_id
+            referenceId: reference_id,
+            allOrNone: all_or_none
           }
         end
 

@@ -18,7 +18,8 @@ describe Restforce::Concerns::CompositeAPI do
             method: 'POST',
             url: '/services/data/v38.0/sobjects/Object',
             body: { name: 'test' },
-            referenceId: 'create_ref'
+            referenceId: 'create_ref',
+            allOrNone: false
           }
         ], allOrNone: all_or_none, collateSubrequests: false }.to_json).
         and_return(response)
@@ -36,7 +37,8 @@ describe Restforce::Concerns::CompositeAPI do
             method: 'PATCH',
             url: '/services/data/v38.0/sobjects/Object/123',
             body: { name: 'test' },
-            referenceId: 'update_ref'
+            referenceId: 'update_ref',
+            allOrNone: false
           }
         ], allOrNone: all_or_none, collateSubrequests: false }.to_json).
         and_return(response)
@@ -53,7 +55,8 @@ describe Restforce::Concerns::CompositeAPI do
           {
             method: 'DELETE',
             url: '/services/data/v38.0/sobjects/Object/123',
-            referenceId: 'destroy_ref'
+            referenceId: 'destroy_ref',
+            allOrNone: false
           }
         ], allOrNone: all_or_none, collateSubrequests: false }.to_json).
         and_return(response)
@@ -71,7 +74,8 @@ describe Restforce::Concerns::CompositeAPI do
             method: 'PATCH',
             url: '/services/data/v38.0/sobjects/Object/extIdField__c/456',
             body: { name: 'test' },
-            referenceId: 'upsert_ref'
+            referenceId: 'upsert_ref',
+            allOrNone: false
           }
         ], allOrNone: all_or_none, collateSubrequests: false }.to_json).
         and_return(response)
@@ -90,18 +94,21 @@ describe Restforce::Concerns::CompositeAPI do
             method: 'POST',
             url: '/services/data/v38.0/sobjects/Object',
             body: { name: 'test' },
-            referenceId: 'create_ref'
+            referenceId: 'create_ref',
+            allOrNone: false
           },
           {
             method: 'PATCH',
             url: '/services/data/v38.0/sobjects/Object/123',
             body: { name: 'test' },
-            referenceId: 'update_ref'
+            referenceId: 'update_ref',
+            allOrNone: false
           },
           {
             method: 'DELETE',
             url: '/services/data/v38.0/sobjects/Object/123',
-            referenceId: 'destroy_ref'
+            referenceId: 'destroy_ref',
+            allOrNone: false
           }
         ], allOrNone: all_or_none, collateSubrequests: false }.to_json).
         and_return(response)
