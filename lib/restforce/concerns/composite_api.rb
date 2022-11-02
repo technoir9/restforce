@@ -50,9 +50,8 @@ module Restforce
           requests << {
             method: 'POST',
             url: composite_api_path(sobject),
-            body: attrs,
-            referenceId: reference_id,
-            allOrNone: all_or_none
+            body: { allOrNone: all_or_none, records: [attrs] },
+            referenceId: reference_id
           }
         end
 
@@ -64,9 +63,8 @@ module Restforce
           requests << {
             method: 'PATCH',
             url: composite_api_path("#{sobject}/#{id}"),
-            body: attrs_without_id,
-            referenceId: reference_id,
-            allOrNone: all_or_none
+            body: { allOrNone: all_or_none, records: [attrs_without_id] },
+            referenceId: reference_id
           }
         end
 
@@ -74,8 +72,8 @@ module Restforce
           requests << {
             method: 'DELETE',
             url: composite_api_path("#{sobject}/#{id}"),
-            referenceId: reference_id,
-            allOrNone: all_or_none
+            body: { allOrNone: all_or_none },
+            referenceId: reference_id
           }
         end
 
@@ -91,9 +89,8 @@ module Restforce
           requests << {
             method: 'PATCH',
             url: composite_api_path("#{sobject}/#{ext_field}/#{ext_id}"),
-            body: attrs_without_ext_id,
-            referenceId: reference_id,
-            allOrNone: all_or_none
+            body: { allOrNone: all_or_none, records: [attrs_without_ext_id] },
+            referenceId: reference_id
           }
         end
 
